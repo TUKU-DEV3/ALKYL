@@ -1,5 +1,4 @@
 import subprocess, sys, json
-from pathlib import Path
 from tests.conftest import run_script, ASPIRIN_SMILES
 
 SCRIPT = "chem_convert.py"
@@ -20,10 +19,10 @@ def test_smiles_to_svg():
     assert "<svg" in result["svg"]
 
 def test_invalid_smiles_exits_nonzero():
+    from tests.conftest import SCRIPTS_DIR
     proc = subprocess.run(
-        [sys.executable, str(Path("scripts/chem_convert.py")),
+        [sys.executable, str(SCRIPTS_DIR / "chem_convert.py"),
          "--smiles", "NOT_A_SMILES", "--to", "inchi"],
         capture_output=True, text=True,
-        cwd="/home/de/Bureau/ALKYL",
     )
     assert proc.returncode != 0

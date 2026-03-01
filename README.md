@@ -40,6 +40,21 @@ That's it. Open a new `claude` session and ALKYL is active.
 bash uninstall.sh
 ```
 
+## Development
+
+Tests require `rdkit`. Run them from a virtual environment that has it installed:
+
+```bash
+# Option A: use the Pepflex venv if available
+/home/de/Bureau/Pepflex/venv/bin/python -m pytest tests/ -m "not network" -v
+
+# Option B: create a local venv
+python3 -m venv .venv
+source .venv/bin/activate
+pip install rdkit pytest
+python -m pytest tests/ -m "not network" -v
+```
+
 ## Project structure
 
 ```
