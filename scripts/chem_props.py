@@ -6,8 +6,8 @@ import json
 import sys
 
 DESCRIPTOR_MAP = {
-    "mw":       ("rdkit.Chem.Descriptors", "MolWt"),
-    "exact_mw": ("rdkit.Chem.Descriptors", "ExactMolWt"),
+    "mw":       ("rdkit.Chem.Descriptors", "MolWt"),      # average MW (Lipinski convention)
+    "exact_mw": ("rdkit.Chem.Descriptors", "ExactMolWt"), # monoisotopic MW
     "logp":     ("rdkit.Chem.Descriptors", "MolLogP"),
     "hbd":      ("rdkit.Chem.Descriptors", "NumHDonors"),
     "hba":      ("rdkit.Chem.Descriptors", "NumHAcceptors"),
@@ -35,7 +35,7 @@ def load_mol(args):
     return mol
 
 
-def calc_descriptors(mol, names: list) -> dict:
+def calc_descriptors(mol, names: list[str]) -> dict:
     import importlib
     result = {}
     for name in names:
@@ -72,9 +72,11 @@ def check_pains(mol) -> dict:
 
 
 def calc_fingerprint(mol, fp_type: str, radius: int, nbits: int) -> dict:
-    from rdkit.Chem import rdMolDescriptors, MACCSkeys
+    from rdkit.Chem import MACCSkeys
     if fp_type == "morgan":
-        fp = rdMolDescriptors.GetMorganFingerprintAsBitVect(mol, radius, nBits=nbits)
+        from rdkit.Chem import rdFingerprintGenerator
+        gen = rdFingerprintGenerator.GetMorganGenerator(radius=radius, fpSize=nbits)
+        fp = gen.GetFingerprint(mol)
     elif fp_type == "maccs":
         fp = MACCSkeys.GenMACCSKeys(mol)
     else:
