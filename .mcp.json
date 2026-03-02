@@ -1,0 +1,14 @@
+{
+  "pubmed": {
+    "command": "uvx",
+    "args": ["mcp-server-pubmed"]
+  },
+  "chembl": {
+    "command": "uvx",
+    "args": ["chembl-mcp-server"]
+  },
+  "arxiv": {
+    "command": "uvx",
+    "args": ["arxiv-mcp-server"]
+  }
+}
