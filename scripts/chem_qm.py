@@ -71,6 +71,51 @@ def write_gaussian(mol, method: str, basis: str, task: str,
     )
 
 
+def parse_orca_ir(text: str) -> dict:
+    """Parse ORCA vibrational frequencies and IR intensities from block format."""
+    import re
+    freqs, intensities = [], []
+
+    vib_match = re.search(
+        r'\$vibrational_frequencies\s+\d+\s+([\d\s.\-:]+?)\$end',
+        text, re.DOTALL)
+    if vib_match:
+        for line in vib_match.group(1).strip().splitlines():
+            parts = line.strip().split(':')
+            if len(parts) == 2:
+                freqs.append(float(parts[1].strip()))
+
+    ir_match = re.search(
+        r'\$ir_spectrum\s+\d+\s+([\d\s.\-:]+?)\$end',
+        text, re.DOTALL)
+    if ir_match:
+        for line in ir_match.group(1).strip().splitlines():
+            parts = line.strip().split(':')
+            if len(parts) == 2:
+                intensities.append(float(parts[1].strip()))
+
+    modes = []
+    n_imaginary = 0
+    for i, freq in enumerate(freqs):
+        if i < 6:
+            continue
+        intensity = intensities[i] if i < len(intensities) else 0.0
+        if freq < 0:
+            n_imaginary += 1
+        modes.append({
+            "mode": i,
+            "freq_cm1": round(freq, 2),
+            "intensity": round(intensity, 2),
+        })
+
+    return {
+        "source": "orca",
+        "frequencies_cm1": modes,
+        "n_imaginary": n_imaginary,
+        "n_modes": len(modes),
+    }
+
+
 def parse_orca_output(path: str) -> dict:
     """Parse key results from an ORCA output file."""
     result = {}
@@ -111,11 +156,16 @@ def main():
     parser.add_argument("--mult", type=int, default=1)
     parser.add_argument("--out", help="Write input file to this path")
     parser.add_argument("--parse", help="Parse existing QM output file -> JSON")
+    parser.add_argument("--parse-ir", action="store_true", dest="parse_ir",
+                        help="Parse IR frequencies from ORCA block format")
     args = parser.parse_args()
 
     # Parse mode
     if args.parse:
-        if args.engine == "orca":
+        text = Path(args.parse).read_text(errors="replace")
+        if args.parse_ir:
+            result = parse_orca_ir(text)
+        elif args.engine == "orca":
             result = parse_orca_output(args.parse)
         else:
             print("Gaussian parsing not yet implemented.", file=sys.stderr)
