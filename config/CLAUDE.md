@@ -25,6 +25,7 @@ RDKit · ASE · ORCA · Gaussian · OpenBabel · py3Dmol · MDAnalysis · DeepCh
 - `rdkit` — RDKit complet : I/O, descripteurs, fingerprints, 3D, réactions, visualisation
 - `deepchem` — ML moléculaire : featurisation, MoleculeNet, GCN, drug discovery
 - `nextflow` — Pipelines HPC/cloud pour workflows de chimie computationnelle
+- `chem-brainstorm` — Guide de brainstorming comp chem : évaluation molécule, hypothèses SAR, réactions, pipelines. Intègre scripts ALKYL + MCPs (ChEMBL, OpenTargets, bioRxiv, ClinicalTrials). Flexible + 4 protocoles rigides.
 - `daylight-theory` — Théorie cheminformatique fondamentale : SMILES complet, SMARTS query language, SMIRKS transforms, fingerprints & similarité (Tanimoto, Tversky), représentation moléculaire. Basé sur le Daylight Theory Manual.
 
 ### Marketplace skills (auto-maintained, outsourced)
