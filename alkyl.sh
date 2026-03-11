@@ -161,6 +161,28 @@ PY
     printf "\n"
 }
 
+cmd_venv() {
+    VENV_DIR="$REPO_DIR/.venv"
+    printf "\n  ${BOLD}Setting up ALKYL virtual environment${RESET}\n"
+    printf "  ${DIM}Location: $VENV_DIR${RESET}\n\n"
+
+    if [ -d "$VENV_DIR" ]; then
+        printf "  ${YELLOW}⚠ .venv already exists. Reinstalling dependencies...${RESET}\n"
+    else
+        python3 -m venv "$VENV_DIR"
+        printf "  ${GREEN}✓ Virtual environment created${RESET}\n"
+    fi
+
+    "$VENV_DIR/bin/pip" install --quiet --upgrade pip
+    "$VENV_DIR/bin/pip" install --quiet "rdkit>=2023.9.1" pytest
+
+    printf "  ${GREEN}✓ Dependencies installed (rdkit, pytest)${RESET}\n\n"
+    printf "  ${BOLD}Run scripts:${RESET}\n"
+    printf "  ${DIM}  $VENV_DIR/bin/python scripts/chem_props.py --smiles 'CCO'${RESET}\n\n"
+    printf "  ${BOLD}Run tests:${RESET}\n"
+    printf "  ${DIM}  $VENV_DIR/bin/python -m pytest tests/ -m 'not network' -v${RESET}\n\n"
+}
+
 cmd_setup_key() {
     local SERVICE="${1:-}"
     local API_KEY="${2:-}"
@@ -212,12 +234,14 @@ case "$CMD" in
     repair)    cmd_repair ;;
     uninstall) cmd_uninstall ;;
     status)    cmd_status ;;
+    venv)      cmd_venv ;;
     setup-key) cmd_setup_key "${2:-}" "${3:-}" ;;
     *)
         printf "\n  ${BOLD}ALKYL — Computational Chemistry Plugin${RESET}\n\n"
         printf "  Usage: bash alkyl.sh <command>\n\n"
         printf "  Commands:\n"
         printf "    ${GREEN}install${RESET}                        Install ALKYL into ~/.claude/CLAUDE.md\n"
+        printf "    ${GREEN}venv${RESET}                           Create .venv with RDKit (for scripts & tests)\n"
         printf "    ${GREEN}repair${RESET}                         Force re-inject config (fixes corruption)\n"
         printf "    ${GREEN}uninstall${RESET}                      Remove ALKYL from ~/.claude/CLAUDE.md\n"
         printf "    ${GREEN}status${RESET}                         Show installation status and MCP keys\n"

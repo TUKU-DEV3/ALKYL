@@ -119,19 +119,21 @@ This adds the `@perplexity-ai/mcp-server` to your Claude Code MCP settings. The 
 ### Setup
 
 ```bash
-python3 -m venv .venv
-source .venv/bin/activate
-pip install rdkit pytest
+# Create a local virtual environment with RDKit
+bash alkyl.sh venv
+
+# Run scripts
+.venv/bin/python scripts/chem_props.py --smiles 'CCO'
 ```
 
 ## Tests
 
 ```bash
 # Unit tests only (no network)
-python -m pytest tests/ -m "not network" -v
+.venv/bin/python -m pytest tests/ -m "not network" -v
 
 # All tests including network
-python -m pytest tests/ -v
+.venv/bin/python -m pytest tests/ -v
 ```
 
 ---
