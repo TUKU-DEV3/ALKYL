@@ -21,7 +21,7 @@ fetch → standardize → filter → analyze → score → select → (ML or QM)
 
 Map each stage to an ALKYL script:
 ```
-fetch        → chem_fetch.py (PubChem/ChEMBL) or ChEMBL MCP
+fetch        → ChEMBL MCP / PubMed MCP / PDB MCP
 standardize  → chem_standardize.py
 filter       → chem_filter.py (Lipinski/PAINS/Veber)
 analyze      → chem_batch.py (bulk descriptors)

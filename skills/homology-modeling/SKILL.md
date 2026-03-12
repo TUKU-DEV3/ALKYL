@@ -162,4 +162,4 @@ python -c "import esm; print('ESM OK')"
 - `qm-dft` → QM refinement of active-site geometry (xTB/ORCA)
 - `free-energy` → FEP/TI relative binding free energies using model receptor
 - `ase` → QM/MM or GFN2-xTB optimization of small binding-site models
-- Scripts: `chem_fetch.py --source pdb --id 1ABC` → download template PDB
+- PDB: use `PDB MCP` or `pdb_database` skill → download template PDB

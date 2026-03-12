@@ -20,8 +20,6 @@ def fetch_pdb(pdb_id: str, out_dir: str = ".") -> Path:
 # Example: CDK2 with inhibitor
 pdb_path = fetch_pdb("1HCL")
 
-# Or use ALKYL script to fetch
-# python scripts/chem_fetch.py --source pdb --id 1HCL
 ```
 
 **Inspect first:**

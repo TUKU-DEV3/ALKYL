@@ -14,7 +14,7 @@
 [![Python](https://img.shields.io/badge/Python-3.9%2B-blue)](https://www.python.org/)
 [![Claude Code](https://img.shields.io/badge/Claude_Code-plugin-blueviolet)](https://claude.ai/code)
 [![Skills](https://img.shields.io/badge/skills-23-green)](#skills)
-[![Scripts](https://img.shields.io/badge/scripts-23-green)](#scripts)
+[![Scripts](https://img.shields.io/badge/scripts-22-green)](#scripts)
 [![Tests](https://img.shields.io/badge/tests-162-brightgreen)](tests/)
 
 **A [Claude Code](https://claude.ai/code) plugin for computational chemistry and drug discovery.**
@@ -190,13 +190,12 @@ Once installed, ALKYL responds to natural chemistry requests:
 
 ## Scripts
 
-23 standalone Python scripts in `scripts/`. Each requires only RDKit (+ stdlib). Run with any Python ≥ 3.9 environment with RDKit.
+22 standalone Python scripts in `scripts/`. Each requires only RDKit (+ stdlib). Run with any Python ≥ 3.9 environment with RDKit. For fetching molecules from PubChem/ChEMBL/PDB, use the built-in MCP tools directly.
 
 | Script | Description |
 |--------|-------------|
 | `chem_convert.py` | Convert molecules between SMILES, SDF, InChI, InChIKey, and SVG. Batch-capable. |
 | `chem_props.py` | MW, cLogP, TPSA, HBD, HBA, RotBonds, QED. Lipinski Ro5 + PAINS alerts. Morgan (ECFP4) and MACCS fingerprints. |
-| `chem_fetch.py` | Fetch from PubChem (name/CID/InChI) and ChEMBL (name/ID). SMILES, synonyms, properties. stdlib only. |
 | `chem_3d.py` | 3D conformer generation (ETKDGv3) + MMFF94/UFF minimization. Outputs SDF. |
 | `chem_qm.py` | ORCA/Gaussian input from SMILES (auto 3D embed). Parse ORCA output: energy, frequencies, thermochemistry, IR. |
 | `chem_batch.py` | Batch-process SDF/SMI/CSV: descriptors, Lipinski Ro5, PAINS. `--skip-invalid` for robust pipelines. |
@@ -260,7 +259,6 @@ alkyl/
 ├── scripts/
 │   ├── chem_convert.py     # format conversion
 │   ├── chem_props.py       # molecular properties and fingerprints
-│   ├── chem_fetch.py       # PubChem and ChEMBL retrieval
 │   ├── chem_3d.py          # ETKDGv3 conformer generation
 │   ├── chem_qm.py          # ORCA/Gaussian input + output parsing
 │   ├── chem_batch.py       # batch processing

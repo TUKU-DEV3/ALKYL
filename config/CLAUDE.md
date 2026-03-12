@@ -118,7 +118,6 @@ Run via Bash: `python ALKYL_SCRIPTS_PATH/<script>.py`
 | Generate 3D conformers | `chem_3d.py --conformers N` |
 | Prepare ORCA/Gaussian input | `chem_qm.py --engine orca` |
 | Parse QM output | `chem_qm.py --parse output.log` |
-| Fetch molecule from PubChem/ChEMBL | `chem_fetch.py` |
 | Standardize molecule (desalt, neutralize) | `chem_standardize.py --smiles SMILES` |
 | Full structural analysis (FG, stereo, QED, SA) | `chem_analyze.py --smiles SMILES` |
 | Batch-process library (SDF/SMI/CSV) | `chem_batch.py --input lib.smi --descriptors all --lipinski` |
