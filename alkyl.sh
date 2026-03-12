@@ -71,13 +71,13 @@ inject_block() {
 register_plugin() {
     mkdir -p "$(dirname "$SETTINGS")"
     [ -f "$SETTINGS" ] || echo '{"plugins":{}}' > "$SETTINGS"
-    python3 - "$SETTINGS" "$REPO_DIR" <<'PY'
+    python3 - "$SETTINGS" "$REPO_DIR" "$HOME/.claude/plugins/installed_plugins.json" <<'PY'
 import json, sys, datetime
-path, repo = sys.argv[1], sys.argv[2]
+path, repo, plugins_path = sys.argv[1], sys.argv[2], sys.argv[3]
 with open(path) as f:
     d = json.load(f)
 now = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%S.000Z")
-installed = json.load(open("/home/de/.claude/plugins/installed_plugins.json"))
+installed = json.load(open(plugins_path))
 installed["plugins"]["alkyl@local"] = [{
     "scope": "user",
     "installPath": repo,
@@ -86,15 +86,15 @@ installed["plugins"]["alkyl@local"] = [{
     "lastUpdated": now,
     "gitCommitSha": "local"
 }]
-with open("/home/de/.claude/plugins/installed_plugins.json", "w") as f:
+with open(plugins_path, "w") as f:
     json.dump(installed, f, indent=2)
 PY
 }
 
 deregister_plugin() {
-    python3 - <<'PY'
-import json
-path = "/home/de/.claude/plugins/installed_plugins.json"
+    python3 - "$HOME/.claude/plugins/installed_plugins.json" <<'PY'
+import json, sys
+path = sys.argv[1]
 with open(path) as f:
     d = json.load(f)
 d["plugins"].pop("alkyl@local", None)

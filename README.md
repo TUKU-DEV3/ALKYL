@@ -13,7 +13,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/Python-3.9%2B-blue)](https://www.python.org/)
 [![Claude Code](https://img.shields.io/badge/Claude_Code-plugin-blueviolet)](https://claude.ai/code)
-[![Skills](https://img.shields.io/badge/skills-23-green)](#skills)
+[![Skills](https://img.shields.io/badge/skills-27-green)](#skills)
 [![Scripts](https://img.shields.io/badge/scripts-22-green)](#scripts)
 [![Tests](https://img.shields.io/badge/tests-162-brightgreen)](tests/)
 
@@ -146,6 +146,7 @@ Once installed, ALKYL responds to natural chemistry requests:
 | `openbabel` | Format conversion (146 formats), 3D structure generation (MMFF94/UFF/GAFF), conformer search, protonation at pH, FP2/FP3/FP4/MACCS fingerprints, RDKit interoperability |
 | `daylight-theory` | Complete SMILES spec, SMARTS query language (all primitives, recursive SMARTS, reaction queries), SMIRKS transforms, path fingerprints, similarity metrics (Tanimoto/Dice/Tversky/Cosine + 15 variants) |
 | `chem-brainstorm` | Workflow guide: classify → audit data → map tools → generate directions → sanity checks → literature. 4 rigid protocols (molecule evaluation, SAR hypothesis, reaction design, pipeline). Integrates ALKYL scripts + MCP tools (ChEMBL, OpenTargets, bioRxiv, ClinicalTrials) |
+| `synkit` | Graph-based reaction informatics: ITS/CGR graph construction (NetworkX), atom-to-atom mapping validation (AAMValidator), reaction SMILES canonicalization (CanonRSMI), DPO rule extraction/composition (GML), WL-hash reaction clustering, chemical reaction network analysis (Feinberg deficiency, Petri nets, autocatalysis detection), synthesis planning via SynReactor |
 
 ### Molecular dynamics & structure
 
@@ -182,6 +183,9 @@ Once installed, ALKYL responds to natural chemistry requests:
 | `mmpa` | Matched Molecular Pair Analysis: Hussain-Rea fragmentation, SMIRKS transforms, mmpdb 4 CLI workflow (fragment→index→loadprops→transform→analyze), activity cliff detection (SALI), bioisostere table, focused library generation, REINVENT/docking integration |
 | `uncertainty-qsar` | Conformal prediction (MAPIE split/CV+, coverage guarantee, Mondrian), GP with GPyTorch TanimotoKernel, MC Dropout (T=50), deep ensembles (M=5), heteroscedastic head, Laplace approximation, applicability domain (kNN Tanimoto, Williams plot, Mahalanobis), OECD Principle 3 |
 | `active-learning` | Query strategies (UCB/EI/BALD/QBC/Core-Set), batch DPP/cluster-then-rank, docking oracle (Vina/Gnina, ~50× screening speedup), BEDROC/EF evaluation, DMTA cycle management (batch composition, stopping criteria, round reports) |
+| `deepchem` | MoleculeNet datasets (40+), molecular featurization (GraphConv/ECFP/Weave/AttentiveFP), GCN/MPNN/GAT/LSTM models, multitask training, drug property prediction (solubility, toxicity, binding affinity), protein-ligand interaction, quantum chemistry properties (QM9), virtual screening pipelines |
+| `torchdrug` | PyTorch GNN drug discovery: molecular property prediction (40+ datasets), protein modeling (function/stability/localization), drug-target binding affinity (PDBBind/BindingDB), knowledge graph completion (Hetionet), molecular generation (GCPN/GraphAF), retrosynthesis (G2Gs/REINVENT) |
+| `pepflex` | In silico peptide evolution (PepFlex 0.0.4): population generation, mutation/crossover on SMILES-based sequences, custom fitness evaluation (ML models, physicochemical filters), multi-round directed evolution simulation, activity-guided library optimization |
 
 ### Visualization & utilities
 
@@ -189,6 +193,7 @@ Once installed, ALKYL responds to natural chemistry requests:
 |-------|-------------|
 | `py3Dmol` | 3Dmol.js visualization: PDB/SDF/SMILES loading, cartoon/stick/sphere/surface styles (SES/SAS/VDW), selection language, color schemes (spectrum/b-factor), docking pose batch viewer (ipywidgets), pharmacophore overlay, conformer animation, PNG/HTML export, NGLview for MD |
 | `lit-rescue` | Literature search of last resort when hallucination risk is >20%: Perplexity→bioRxiv→PubMed waterfall, 7 query types (METHOD/PARAM/BUG/THEORY/PROTOCOL/BENCHMARK/DOMAIN), confidence reporting (★★★ to ☆☆☆), mandatory negative result block when no source found |
+| `nextflow` | Nextflow DSL2 pipelines for HPC/cloud: process/channel/workflow composition, SLURM/LSF/AWS Batch/GCP executors, container management (Docker/Singularity/Conda), chemistry/bioinformatics pipelines (ORCA, Gaussian, RDKit, BLAST), `-resume` cache behavior, module aliases, Nextflow Tower monitoring |
 
 ---
 
