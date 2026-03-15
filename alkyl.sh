@@ -88,18 +88,28 @@ installed["plugins"]["alkyl@local"] = [{
 }]
 with open(plugins_path, "w") as f:
     json.dump(installed, f, indent=2)
+# Enable the plugin in settings.json (required for skill discovery)
+d.setdefault("enabledPlugins", {})["alkyl@local"] = True
+with open(path, "w") as f:
+    json.dump(d, f, indent=2, ensure_ascii=False)
 PY
 }
 
 deregister_plugin() {
-    python3 - "$HOME/.claude/plugins/installed_plugins.json" <<'PY'
-import json, sys
-path = sys.argv[1]
-with open(path) as f:
+    python3 - "$HOME/.claude/plugins/installed_plugins.json" "$SETTINGS" <<'PY'
+import json, os, sys
+plugins_path, settings_path = sys.argv[1], sys.argv[2]
+with open(plugins_path) as f:
     d = json.load(f)
 d["plugins"].pop("alkyl@local", None)
-with open(path, "w") as f:
+with open(plugins_path, "w") as f:
     json.dump(d, f, indent=2)
+if os.path.exists(settings_path):
+    with open(settings_path) as f:
+        s = json.load(f)
+    s.get("enabledPlugins", {}).pop("alkyl@local", None)
+    with open(settings_path, "w") as f:
+        json.dump(s, f, indent=2, ensure_ascii=False)
 PY
 }
 
